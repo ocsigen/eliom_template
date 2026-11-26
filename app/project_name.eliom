@@ -10,9 +10,9 @@ let%client application_name = Eliom.Client.get_application_name ()
    https://ocsigen.org/eliom/latest/clientserver/applications.html for more
    information. *)
 module%shared App = Eliom.Registration.App (struct
-    let application_name = application_name
-    let global_data_path = Some ["__global_data__"]
-  end)
+  let application_name = application_name
+  let global_data_path = Some ["__global_data__"]
+end)
 
 (* As the headers (stylesheets, etc) won't change, we ask Eliom not to update
    the <head> of the page when changing page. (This also avoids blinking when
@@ -36,8 +36,12 @@ let%shared () =
                  ~uri:
                    (make_uri
                       ~service:(Eliom.Service.static_dir ())
-                      ["css"; "project_name.css"])
-                 () ])
-          (body [Project_name_lib.main_page ()]))
+                      ["css"; "project_name.css"]
+                   )
+                 ()
+             ]
+          )
+          (body [Project_name_lib.main_page ()])
+      )
   in
   App.register ~service:main_service run
